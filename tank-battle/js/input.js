@@ -7,6 +7,7 @@ class InputHandler {
     this.mouseX = 0;
     this.mouseY = 0;
     this._clicked = false;   // consumed per-frame
+    this._isMobile = false;
 
     // ── keyboard ───────────────────────────────────────────────────────────────
     window.addEventListener('keydown', e => {
@@ -34,7 +35,7 @@ class InputHandler {
       }
     });
 
-    // ── touch ──────────────────────────────────────────────────────────────────
+    // ── touch (canvas – for menu taps) ──────────────────────────────────────────
     canvas.addEventListener('touchstart', e => {
       e.preventDefault();
       const t = e.touches[0];
@@ -53,6 +54,63 @@ class InputHandler {
     }, { passive: false });
 
     canvas.addEventListener('touchend',   e => e.preventDefault(), { passive: false });
+
+    // ── mobile touch controls ──────────────────────────────────────────────────
+    this._initTouchControls();
+  }
+
+  _initTouchControls() {
+    const tc = document.getElementById('touchControls');
+    if (!tc) return;
+
+    // Detect mobile / touch device
+    this._isMobile = ('ontouchstart' in window) ||
+                     (navigator.maxTouchPoints > 0) ||
+                     window.matchMedia('(pointer: coarse)').matches;
+
+    // Bind D-pad buttons
+    const dpadBtns = tc.querySelectorAll('.dpad-btn');
+    dpadBtns.forEach(btn => {
+      const key = btn.dataset.key;
+      const press = (e) => { e.preventDefault(); this.keys[key] = true; btn.classList.add('pressed'); };
+      const release = (e) => { e.preventDefault(); this.keys[key] = false; btn.classList.remove('pressed'); };
+
+      btn.addEventListener('touchstart', press,   { passive: false });
+      btn.addEventListener('touchend',   release,  { passive: false });
+      btn.addEventListener('touchcancel', release,  { passive: false });
+
+      // Also support mouse for testing on desktop
+      btn.addEventListener('mousedown', press);
+      btn.addEventListener('mouseup', release);
+      btn.addEventListener('mouseleave', release);
+    });
+
+    // Fire button – maps to Space
+    const fireBtn = document.getElementById('btnFire');
+    if (fireBtn) {
+      const firePress = (e) => { e.preventDefault(); this.keys['Space'] = true; fireBtn.classList.add('pressed'); };
+      const fireRelease = (e) => { e.preventDefault(); this.keys['Space'] = false; fireBtn.classList.remove('pressed'); };
+
+      fireBtn.addEventListener('touchstart', firePress,   { passive: false });
+      fireBtn.addEventListener('touchend',   fireRelease,  { passive: false });
+      fireBtn.addEventListener('touchcancel', fireRelease,  { passive: false });
+      fireBtn.addEventListener('mousedown', firePress);
+      fireBtn.addEventListener('mouseup', fireRelease);
+      fireBtn.addEventListener('mouseleave', fireRelease);
+    }
+
+    // Pause button – maps to KeyP
+    const pauseBtn = document.getElementById('btnPause');
+    if (pauseBtn) {
+      const pausePress = (e) => { e.preventDefault(); this.keys['KeyP'] = true; };
+      const pauseRelease = (e) => { e.preventDefault(); this.keys['KeyP'] = false; };
+
+      pauseBtn.addEventListener('touchstart', pausePress,   { passive: false });
+      pauseBtn.addEventListener('touchend',   pauseRelease,  { passive: false });
+      pauseBtn.addEventListener('touchcancel', pauseRelease,  { passive: false });
+      pauseBtn.addEventListener('mousedown', pausePress);
+      pauseBtn.addEventListener('mouseup', pauseRelease);
+    }
   }
 
   // ── movement ──────────────────────────────────────────────────────────────────

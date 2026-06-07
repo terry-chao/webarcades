@@ -501,7 +501,7 @@ class Game {
       ctx.fillStyle = 'rgba(0,0,0,0.48)';
       ctx.fillRect(0, 0, CFG.GW, CFG.GH);
       this._centreText(ctx, CFG.GW/2, CFG.GH/2 - 10, 'PAUSED', 20, '#ffdd00');
-      this._centreText(ctx, CFG.GW/2, CFG.GH/2 + 24, 'P to resume', 9, '#aaa');
+      this._centreText(ctx, CFG.GW/2, CFG.GH/2 + 24, this.input._isMobile ? 'II to resume' : 'P to resume', 9, '#aaa');
     }
     if (this.state === STATE.STAGE_CLEAR) {
       ctx.fillStyle = 'rgba(0,0,0,0.38)';
@@ -545,16 +545,19 @@ class Game {
     ctx.fillText('HI-SCORE: ' + String(this.hiScore).padStart(7, '0'), cx, 152);
 
     // Blink prompt
+    const isMobile = this.input._isMobile;
     if (Math.floor(Date.now() / 520) % 2 === 0) {
       ctx.fillStyle = '#ffffff';
       ctx.font = '9px "Press Start 2P", monospace';
-      ctx.fillText('PRESS ENTER TO START', cx, 378);
+      ctx.fillText(isMobile ? 'TAP TO START' : 'PRESS ENTER TO START', cx, 378);
     }
 
     // Controls
     ctx.fillStyle = '#666';
     ctx.font = '7px "Press Start 2P", monospace';
-    ctx.fillText('WASD / ↑↓←→ : Move    Space / Click : Shoot    P : Pause', cx, 400);
+    ctx.fillText(isMobile
+      ? 'D-PAD : Move    FIRE : Shoot    II : Pause'
+      : 'WASD / ↑↓←→ : Move    Space / Click : Shoot    P : Pause', cx, 400);
 
     // HUD panel
     ctx.fillStyle = '#111';
@@ -599,7 +602,7 @@ class Game {
     this._centreText(ctx, cx, cy - 12, 'OVER',  22, '#ff2222');
     this._centreText(ctx, cx, cy + 30, 'SCORE: ' + this.score, 9, '#ffdd00');
     if (Math.floor(Date.now()/600) % 2 === 0)
-      this._centreText(ctx, cx, cy + 60, 'ENTER TO RETRY', 7, '#888');
+      this._centreText(ctx, cx, cy + 60, this.input._isMobile ? 'TAP TO RETRY' : 'ENTER TO RETRY', 7, '#888');
   }
 
   // ── render: victory ──────────────────────────────────────────────────────────
@@ -620,7 +623,7 @@ class Game {
     if (this.score === this.hiScore && this.score > 0)
       this._centreText(ctx, cx, cy+40, 'NEW RECORD!',        8,  '#ff8800');
     if (Math.floor(Date.now()/600) % 2 === 0)
-      this._centreText(ctx, cx, cy+70, 'ENTER TO PLAY AGAIN',7,  '#888');
+      this._centreText(ctx, cx, cy+70, this.input._isMobile ? 'TAP TO PLAY AGAIN' : 'ENTER TO PLAY AGAIN',7,  '#888');
   }
 
   // ── helper: centred text ─────────────────────────────────────────────────────
@@ -641,8 +644,15 @@ window.addEventListener('load', () => {
 
   // Adaptive CSS scaling
   function scaleCanvas() {
-    const sx = (window.innerWidth  - 8) / canvas.width;
-    const sy = (window.innerHeight - 8) / canvas.height;
+    const isMobile = ('ontouchstart' in window) ||
+                     (navigator.maxTouchPoints > 0) ||
+                     window.matchMedia('(pointer: coarse)').matches;
+
+    // Reserve space for touch controls on mobile (~160px)
+    const controlsH = isMobile ? 160 : 0;
+    const pad = 8;
+    const sx = (window.innerWidth  - pad) / canvas.width;
+    const sy = (window.innerHeight - pad - controlsH) / canvas.height;
     const s  = Math.min(sx, sy, 2.5);   // cap at 2.5×
     canvas.style.width  = Math.floor(canvas.width  * s) + 'px';
     canvas.style.height = Math.floor(canvas.height * s) + 'px';

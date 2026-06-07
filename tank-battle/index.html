@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>坦克大战 | Tank Battle</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -11,6 +11,23 @@
 <body>
   <div id="gameWrapper">
     <canvas id="gameCanvas" width="576" height="416"></canvas>
+  </div>
+
+  <!-- Mobile touch controls -->
+  <div id="touchControls">
+    <div id="dpad">
+      <button class="dpad-btn" id="btnUp" data-key="ArrowUp">▲</button>
+      <div class="dpad-row">
+        <button class="dpad-btn" id="btnLeft" data-key="ArrowLeft">◀</button>
+        <div class="dpad-center"></div>
+        <button class="dpad-btn" id="btnRight" data-key="ArrowRight">▶</button>
+      </div>
+      <button class="dpad-btn" id="btnDown" data-key="ArrowDown">▼</button>
+    </div>
+    <div id="rightControls">
+      <button id="btnPause" class="ctrl-btn">II</button>
+      <button id="btnFire" class="ctrl-btn fire-btn">FIRE</button>
+    </div>
   </div>
 
   <script src="js/config.js"></script>
