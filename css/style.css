@@ -1,33 +1,158 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ── Reset ─────────────────────────────────────────────────────────────────── */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background: #0d0d0d;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  overflow: hidden;
+  background: #0a0a0f;
+  color: #eee;
   font-family: 'Press Start 2P', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-#gameWrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
+/* ── Arcade container ──────────────────────────────────────────────────────── */
+#arcade {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
 }
 
-#gameCanvas {
+/* ── Header ────────────────────────────────────────────────────────────────── */
+#header {
+  text-align: center;
+  margin-bottom: 44px;
+}
+
+#header .title {
+  font-size: 28px;
+  color: #ffdd00;
+  text-shadow: 0 0 24px rgba(255,220,0,0.45), 0 3px 0 #6a3800;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+#header .subtitle {
+  font-size: 10px;
+  color: #888;
+  letter-spacing: 2px;
+}
+
+/* ── Game grid ─────────────────────────────────────────────────────────────── */
+#games {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  justify-items: center;
+}
+
+/* ── Card ──────────────────────────────────────────────────────────────────── */
+.card {
   display: block;
-  cursor: crosshair;
+  width: 100%;
+  max-width: 320px;
+  background: #161620;
+  border: 2px solid #2a2a3a;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.22s, border-color 0.22s, box-shadow 0.22s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  border-color: #ffdd00;
+  box-shadow: 0 8px 36px rgba(255,220,0,0.18), 0 0 0 1px #ffdd00;
+}
+
+.card canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #000;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
-  /* CSS sizing handled by JS for adaptive scaling */
-  border: 2px solid #444;
-  box-shadow: 0 0 32px rgba(255, 220, 0, 0.18), 0 0 4px #000;
+}
+
+.card-info {
+  padding: 14px 16px 18px;
+}
+
+.card-info h2 {
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 3px;
+}
+
+.card-en {
+  font-size: 8px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.card-desc {
+  font-size: 7px;
+  color: #aaa;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 8px;
+  padding: 5px 14px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.tag.play {
+  background: #1b5e20;
+  color: #66ff66;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+.tag.soon {
+  background: #222;
+  color: #555;
+}
+
+/* coming-soon: grey out */
+.card.coming-soon {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+.card.coming-soon canvas {
+  filter: grayscale(0.7) brightness(0.5);
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────────── */
+#footer {
+  text-align: center;
+  margin-top: 48px;
+  font-size: 7px;
+  color: #444;
+  letter-spacing: 1px;
+}
+
+/* ── Animations ────────────────────────────────────────────────────────────── */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+
+/* ── Scanline overlay (subtle CRT feel) ────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.06) 0px,
+    rgba(0,0,0,0.06) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 9999;
 }

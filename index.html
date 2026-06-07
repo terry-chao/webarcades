@@ -3,22 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>坦克大战 | Tank Battle</title>
+  <title>🕹️ HTML5 Arcade | 网页游戏合集</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="gameWrapper">
-    <canvas id="gameCanvas" width="576" height="416"></canvas>
+  <div id="arcade">
+    <!-- Header -->
+    <header id="header">
+      <h1 class="title">🕹️ HTML5 ARCADE</h1>
+      <p class="subtitle">网页游戏合集</p>
+    </header>
+
+    <!-- Game grid -->
+    <main id="games">
+      <!-- Tank Battle -->
+      <a href="tank-battle/index.html" class="card" id="card-tank">
+        <canvas id="preview-tank" width="280" height="180"></canvas>
+        <div class="card-info">
+          <h2>坦克大战</h2>
+          <p class="card-en">Tank Battle</p>
+          <p class="card-desc">经典 FC 坦克大战，5个关卡，4种敌人，6种道具</p>
+          <span class="tag play">▶ PLAY</span>
+        </div>
+      </a>
+
+      <!-- Snake (placeholder) -->
+      <div class="card coming-soon">
+        <canvas id="preview-snake" width="280" height="180"></canvas>
+        <div class="card-info">
+          <h2>贪吃蛇</h2>
+          <p class="card-en">Snake</p>
+          <p class="card-desc">经典贪吃蛇，即将推出…</p>
+          <span class="tag soon">COMING SOON</span>
+        </div>
+      </div>
+
+      <!-- Tetris (placeholder) -->
+      <div class="card coming-soon">
+        <canvas id="preview-tetris" width="280" height="180"></canvas>
+        <div class="card-info">
+          <h2>俄罗斯方块</h2>
+          <p class="card-en">Tetris</p>
+          <p class="card-desc">经典方块消除，即将推出…</p>
+          <span class="tag soon">COMING SOON</span>
+        </div>
+      </div>
+
+      <!-- Space Invaders (placeholder) -->
+      <div class="card coming-soon">
+        <canvas id="preview-invaders" width="280" height="180"></canvas>
+        <div class="card-info">
+          <h2>太空侵略者</h2>
+          <p class="card-en">Space Invaders</p>
+          <p class="card-desc">击退外星入侵者，即将推出…</p>
+          <span class="tag soon">COMING SOON</span>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer">
+      <p>🎮 纯 HTML5 + Canvas + Web Audio API · 无需安装 · 点击即玩</p>
+    </footer>
   </div>
 
-  <script src="js/config.js"></script>
-  <script src="js/sound.js"></script>
-  <script src="js/input.js"></script>
-  <script src="js/sprites.js"></script>
-  <script src="js/entities.js"></script>
-  <script src="js/map.js"></script>
-  <script src="js/game.js"></script>
+  <script src="js/home.js"></script>
 </body>
 </html>
