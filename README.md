@@ -1,6 +1,6 @@
-# 🕹️ HTML5 Arcade | 网页游戏合集
+# 🕹️ Web Arcade | 网页游戏合集
 
-A growing collection of classic browser games built with pure HTML5 Canvas + Web Audio API.  
+A growing collection of classic browser games built with pure Canvas + Web Audio API.  
 No frameworks, no external assets — just open the HTML file and play!
 
 ---
