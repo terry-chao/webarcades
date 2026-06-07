@@ -7,9 +7,9 @@ No frameworks, no external assets — just open the HTML file and play!
 
 ## 🎮 Games
 
-| Game | 游戏 | Description | Play |
-|------|------|-------------|------|
-| [Tank Battle](tank-battle/) | 坦克大战 | Classic Battle City clone | [▶ Play](tank-battle/index.html) |
+| Game | 游戏 | Description | Status |
+|------|------|-------------|--------|
+| [Tank Battle](tank-battle/) | 坦克大战 | Classic Battle City clone with 5 levels, 4 enemy types, 6 power-ups | ✅ Play |
 
 > More games coming soon…
 
