@@ -109,7 +109,7 @@
   }
 
   function isOccupied(r, c) {
-    if (r === food.r && c === food.c) return true;
+    if (food && r === food.r && c === food.c) return true;
     if (specialFood && r === specialFood.r && c === specialFood.c) return true;
     return snake.some(s => s.r === r && s.c === c);
   }
