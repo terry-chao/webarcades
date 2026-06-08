@@ -458,8 +458,11 @@
     touchStart = null;
   }, { passive: false });
 
-  // Click to start
+  // Click/tap to start (on canvas or message overlay)
   canvas.addEventListener('click', () => {
+    if (state === 'idle' || state === 'dead') startGame();
+  });
+  document.getElementById('message').addEventListener('click', () => {
     if (state === 'idle' || state === 'dead') startGame();
   });
 
