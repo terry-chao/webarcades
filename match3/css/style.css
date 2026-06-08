@@ -1,0 +1,125 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+body {
+  background: #0d0d0d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  font-family: 'Press Start 2P', monospace;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#gameWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── HUD ────────────────────────────────────────────────────────────────────── */
+#hud {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hud-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.hud-label {
+  font-size: 7px;
+  color: #888;
+  letter-spacing: 1px;
+}
+
+.hud-item span:last-child {
+  font-size: 18px;
+  color: #ffdd00;
+  text-shadow: 0 0 10px rgba(255, 220, 0, 0.4);
+}
+
+/* ── Canvas ─────────────────────────────────────────────────────────────────── */
+#gameCanvas {
+  display: block;
+  cursor: pointer;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  border: 2px solid #444;
+  box-shadow: 0 0 32px rgba(255, 220, 0, 0.15), 0 0 4px #000;
+  border-radius: 4px;
+}
+
+/* ── Message overlay ────────────────────────────────────────────────────────── */
+#message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  color: #ffdd00;
+  text-shadow: 0 0 20px rgba(255, 220, 0, 0.6), 2px 2px 0 #000;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 10;
+  line-height: 2;
+}
+
+#message.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#message .sub {
+  font-size: 8px;
+  color: #aaa;
+  display: block;
+  margin-top: 12px;
+}
+
+/* ── Scanline overlay ───────────────────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.06) 0px,
+    rgba(0,0,0,0.06) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── Mobile adjustments ─────────────────────────────────────────────────────── */
+@media (max-width: 520px) {
+  #hud {
+    gap: 14px;
+  }
+  .hud-item span:last-child {
+    font-size: 14px;
+  }
+}

@@ -189,11 +189,105 @@
     ctx.fillText('SPACE INVADERS', W / 2, H - 12);
   }
 
+  // ── Match-3 preview ─────────────────────────────────────────────────────────
+  function drawMatch3Preview(ctx, W, H) {
+    ctx.fillStyle = '#12121a';
+    ctx.fillRect(0, 0, W, H);
+
+    const cols = 7, rows = 5;
+    const cellW = W / cols, cellH = (H - 28) / rows;
+    const colors = ['#ff4444', '#44cc44', '#4488ff', '#ffaa00', '#cc44ff', '#ff66aa'];
+    const shapes = ['circle', 'diamond', 'square', 'triangle', 'star', 'hexagon'];
+
+    // Seed-based grid for stable pattern
+    const grid = [];
+    for (let r = 0; r < rows; r++) {
+      grid[r] = [];
+      for (let c = 0; c < cols; c++) {
+        grid[r][c] = Math.floor(Math.abs(Math.sin(r * 13 + c * 7)) * colors.length);
+      }
+    }
+
+    // Draw gems with subtle animation offset
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        const idx = grid[r][c];
+        const cx = c * cellW + cellW / 2;
+        const bobY = r * cellH + cellH / 2 + 14 + Math.sin(frame * 0.08 + r + c) * 2;
+        const s = Math.min(cellW, cellH) * 0.34;
+
+        ctx.save();
+        ctx.shadowColor = colors[idx];
+        ctx.shadowBlur = 6;
+        ctx.fillStyle = colors[idx];
+        ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+        ctx.lineWidth = 1.5;
+
+        switch (shapes[idx]) {
+          case 'circle':
+            ctx.beginPath(); ctx.arc(cx, bobY, s, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); break;
+          case 'diamond':
+            ctx.beginPath();
+            ctx.moveTo(cx, bobY - s); ctx.lineTo(cx + s, bobY);
+            ctx.lineTo(cx, bobY + s); ctx.lineTo(cx - s, bobY); ctx.closePath();
+            ctx.fill(); ctx.stroke(); break;
+          case 'square':
+            ctx.fillRect(cx - s * 0.75, bobY - s * 0.75, s * 1.5, s * 1.5);
+            ctx.strokeRect(cx - s * 0.75, bobY - s * 0.75, s * 1.5, s * 1.5); break;
+          case 'triangle':
+            ctx.beginPath();
+            ctx.moveTo(cx, bobY - s); ctx.lineTo(cx + s, bobY + s * 0.7);
+            ctx.lineTo(cx - s, bobY + s * 0.7); ctx.closePath();
+            ctx.fill(); ctx.stroke(); break;
+          case 'star':
+            ctx.beginPath();
+            for (let i = 0; i < 10; i++) {
+              const r2 = i % 2 === 0 ? s : s * 0.4;
+              const a = Math.PI * i / 5 - Math.PI / 2;
+              i === 0 ? ctx.moveTo(cx + Math.cos(a) * r2, bobY + Math.sin(a) * r2)
+                       : ctx.lineTo(cx + Math.cos(a) * r2, bobY + Math.sin(a) * r2);
+            }
+            ctx.closePath(); ctx.fill(); ctx.stroke(); break;
+          case 'hexagon':
+            ctx.beginPath();
+            for (let i = 0; i < 6; i++) {
+              const a = Math.PI / 3 * i - Math.PI / 6;
+              const px = cx + Math.cos(a) * s, py = bobY + Math.sin(a) * s;
+              i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py);
+            }
+            ctx.closePath(); ctx.fill(); ctx.stroke(); break;
+        }
+
+        // Highlight
+        ctx.fillStyle = 'rgba(255,255,255,0.25)';
+        ctx.beginPath(); ctx.arc(cx - s * 0.2, bobY - s * 0.2, s * 0.3, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // Animated match flash
+    const flashPhase = (frame % 40) / 40;
+    if (flashPhase < 0.3) {
+      const row = 2;
+      for (let c = 2; c < 5; c++) {
+        ctx.fillStyle = `rgba(255,255,255,${(1 - flashPhase / 0.3) * 0.4})`;
+        ctx.fillRect(c * cellW, row * cellH + 14, cellW, cellH);
+      }
+    }
+
+    // Label
+    ctx.fillStyle = '#ff66aa';
+    ctx.font = 'bold 11px "Press Start 2P", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('MATCH 3', W / 2, H - 6);
+  }
+
   // ── Render loop ──────────────────────────────────────────────────────────────
   function render() {
     frame++;
     const previews = [
       { id: 'preview-tank',     fn: drawTankPreview },
+      { id: 'preview-match3',   fn: drawMatch3Preview },
       { id: 'preview-snake',    fn: drawSnakePreview },
       { id: 'preview-tetris',   fn: drawTetrisPreview },
       { id: 'preview-invaders', fn: drawInvadersPreview },
