@@ -219,12 +219,14 @@
     for (const [bx, by] of current.blocks) {
       const x = current.x + bx;
       const y = current.y + by;
-      if (y < 0) { gameOver(); return; }
+      if (y <= 0) { gameOver(); return; }
       board[y][x] = current.color;
     }
     checkLines();
     current = next;
     next = spawnPiece();
+    // If newly spawned piece immediately collides, game over
+    if (collides(current)) { gameOver(); return; }
     dropTimer = 0;
     lockTimer = 0;
   }
