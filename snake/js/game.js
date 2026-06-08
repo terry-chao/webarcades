@@ -79,6 +79,7 @@
     speed = 1;
     tickInterval = 120;
     inputQueue = [];
+    food = null;
     specialFood = null;
     specialTimer = 0;
     eatCombo = 0;
