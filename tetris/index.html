@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>俄罗斯方块 | Tetris</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="gameWrapper">
+    <div id="hud">
+      <div class="hud-item"><span class="hud-label">SCORE</span><span id="scoreVal">0</span></div>
+      <div class="hud-item"><span class="hud-label">HIGH</span><span id="highVal">0</span></div>
+      <div class="hud-item"><span class="hud-label">LEVEL</span><span id="levelVal">1</span></div>
+      <div class="hud-item"><span class="hud-label">LINES</span><span id="linesVal">0</span></div>
+    </div>
+    <div id="gameArea">
+      <canvas id="gameCanvas" width="240" height="480"></canvas>
+      <canvas id="nextCanvas" width="80" height="80"></canvas>
+    </div>
+    <div id="message">PRESS SPACE<span class="sub">or tap to start</span></div>
+  </div>
+
+  <script src="js/game.js"></script>
+</body>
+</html>

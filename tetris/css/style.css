@@ -1,0 +1,149 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+body {
+  background: #0d0d0d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  font-family: 'Press Start 2P', monospace;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#gameWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── HUD ────────────────────────────────────────────────────────────────────── */
+#hud {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hud-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.hud-label {
+  font-size: 7px;
+  color: #888;
+  letter-spacing: 1px;
+}
+
+.hud-item span:last-child {
+  font-size: 18px;
+  color: #dddd00;
+  text-shadow: 0 0 10px rgba(221, 221, 0, 0.4);
+}
+
+/* ── Game Area ──────────────────────────────────────────────────────────────── */
+#gameArea {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+/* ── Canvas ─────────────────────────────────────────────────────────────────── */
+#gameCanvas {
+  display: block;
+  cursor: crosshair;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  border: 2px solid #555500;
+  box-shadow: 0 0 32px rgba(221, 221, 0, 0.12), 0 0 4px #000;
+  border-radius: 4px;
+  background: #0a0a1a;
+}
+
+#nextCanvas {
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  border: 2px solid #333300;
+  box-shadow: 0 0 16px rgba(221, 221, 0, 0.08);
+  border-radius: 4px;
+  background: #0a0a1a;
+}
+
+/* ── Message overlay ────────────────────────────────────────────────────────── */
+#message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  color: #dddd00;
+  text-shadow: 0 0 20px rgba(221, 221, 0, 0.6), 2px 2px 0 #000;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 10;
+  line-height: 2;
+}
+
+#message.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#message .sub {
+  font-size: 7px;
+  color: #888;
+  display: block;
+  margin-top: 8px;
+}
+
+/* ── Mobile touch controls ──────────────────────────────────────────────────── */
+#touchControls {
+  display: none;
+  position: fixed;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  gap: 10px;
+  z-index: 20;
+}
+
+.touch-btn {
+  width: 52px;
+  height: 52px;
+  border: 2px solid #555500;
+  border-radius: 8px;
+  background: rgba(221, 221, 0, 0.1);
+  color: #dddd00;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+@media (pointer: coarse) {
+  #touchControls { display: flex; }
+}
