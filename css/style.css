@@ -20,6 +20,7 @@ body {
 #header {
   text-align: center;
   margin-bottom: 44px;
+  position: relative;
 }
 
 #header .title {
@@ -34,6 +35,27 @@ body {
   font-size: 10px;
   color: #888;
   letter-spacing: 2px;
+}
+
+#langToggle {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  padding: 6px 12px;
+  background: #1a1a2e;
+  color: #aaa;
+  border: 1px solid #3a3a5a;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  letter-spacing: 1px;
+}
+
+#langToggle:hover {
+  color: #ffdd00;
+  border-color: #ffdd00;
 }
 
 /* ── Game grid ─────────────────────────────────────────────────────────────── */
@@ -88,6 +110,10 @@ body {
   font-size: 8px;
   color: #666;
   margin-bottom: 10px;
+}
+
+html[lang="en"] .card-en {
+  display: none;
 }
 
 .card-desc {

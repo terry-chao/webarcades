@@ -302,4 +302,25 @@
 
   setInterval(render, 1000 / fps);
   render();
+
+  // ── i18n language toggle ────────────────────────────────────────────────────
+  let lang = 'zh';
+  try { lang = localStorage.getItem('arcade-lang') || 'zh'; } catch (e) {}
+
+  function applyLang(l) {
+    document.querySelectorAll('[data-zh]').forEach(el => {
+      el.textContent = el.getAttribute('data-' + l);
+    });
+    document.documentElement.lang = l === 'zh' ? 'zh-CN' : 'en';
+    const btn = document.getElementById('langToggle');
+    if (btn) btn.textContent = l === 'zh' ? 'EN/中' : '中/EN';
+  }
+
+  applyLang(lang);
+
+  document.getElementById('langToggle').addEventListener('click', () => {
+    lang = lang === 'zh' ? 'en' : 'zh';
+    try { localStorage.setItem('arcade-lang', lang); } catch (e) {}
+    applyLang(lang);
+  });
 })();
