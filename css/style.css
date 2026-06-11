@@ -152,6 +152,113 @@ html[lang="en"] .card-en {
   filter: grayscale(0.7) brightness(0.5);
 }
 
+/* ── Donate ────────────────────────────────────────────────────────────────── */
+#donate {
+  text-align: center;
+  margin-top: 36px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.donate-trigger {
+  display: inline-block;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: #ff6b6b;
+  padding: 8px 20px;
+  border: 1px solid #ff6b6b44;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s;
+  letter-spacing: 1px;
+}
+
+.donate-trigger:hover {
+  color: #ffdd00;
+  border-color: #ffdd00;
+  box-shadow: 0 0 16px rgba(255,220,0,0.2);
+  text-shadow: 0 0 8px rgba(255,220,0,0.4);
+}
+
+.donate-popup {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  background: #1a1a2e;
+  border: 2px solid #ff6b6b55;
+  border-radius: 12px;
+  padding: 20px 24px 16px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+  z-index: 100;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 20px rgba(255,107,107,0.1);
+  pointer-events: none;
+}
+
+.donate-popup::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 8px solid transparent;
+  border-top-color: #ff6b6b55;
+}
+
+#donate:hover .donate-popup {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+  pointer-events: auto;
+}
+
+.donate-title {
+  font-size: 8px;
+  color: #ffdd00;
+  margin-bottom: 16px;
+  text-align: center;
+  line-height: 1.8;
+  max-width: 320px;
+}
+
+.qrcodes {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.qr-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.qr-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 8px;
+  background: #fff;
+  object-fit: cover;
+}
+
+.qr-label {
+  font-size: 8px;
+  color: #aaa;
+  letter-spacing: 1px;
+}
+
+.donate-hint {
+  font-size: 7px;
+  color: #ff6b6b;
+  text-align: center;
+  margin-top: 4px;
+}
+
 /* ── Footer ────────────────────────────────────────────────────────────────── */
 #footer {
   text-align: center;
